@@ -8,7 +8,7 @@
 // @grant        none
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
 // Создание элементов
@@ -27,8 +27,16 @@
         timeDisplay.textContent = `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     }
 
+// Функция изменения цвета фона таймера
+    function changeTimerBackgroundColor(color) {
+        timerDiv.style.backgroundColor = color;
+    }
+
 // Функция, вызываемая при нажатии на кнопку "Старт"
     function startTimer() {
+        // Сброс фона таймера к белому цвету при перезапуске
+        changeTimerBackgroundColor('white');
+
         // Если таймер уже запущен, сначала остановим его
         if (intervalId !== null) {
             clearInterval(intervalId);
@@ -40,9 +48,12 @@
         intervalId = setInterval(() => {
             totalTime -= 1;
             updateTimerDisplay(totalTime);
+
             if (totalTime <= 0) {
                 clearInterval(intervalId);
                 intervalId = null; // Сброс идентификатора интервала после остановки
+                // Изменение цвета фона таймера на желтый при окончании времени
+                changeTimerBackgroundColor('yellow');
             }
         }, 1000);
     }
@@ -59,18 +70,18 @@
     timerDiv.style.top = '0';
     timerDiv.style.left = '50%';
     timerDiv.style.transform = 'translateX(-50%)';
-    timerDiv.style.backgroundColor = 'white';
+    timerDiv.style.backgroundColor = 'white'; // Начальный цвет фона
     timerDiv.style.color = 'black';
     timerDiv.style.zIndex = '1000';
     timerDiv.style.padding = '20px';
     timerDiv.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
     timerDiv.style.display = 'flex';
-    timerDiv.style.gap = '20px'; // Интервалы между элементами
-    timerDiv.style.alignItems = 'center'; // Выравнивание элементов по центру
+    timerDiv.style.gap = '20px';
+    timerDiv.style.alignItems = 'center';
 
 // Стилизация текста и кнопки
-    timeDisplay.style.fontSize = '24px'; // Увеличение шрифта таймера
-    startButton.style.fontSize = '20px'; // Увеличение шрифта кнопки
+    timeDisplay.style.fontSize = '24px';
+    startButton.style.fontSize = '20px';
 
 // Добавление элементов в DOM
     timerDiv.appendChild(timeDisplay);
