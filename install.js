@@ -5,6 +5,6 @@
 // @author       Denis Belov
 
 // @match       https://tracker.yandex.ru/agile/board/*
-// @grant        none
-// @require
+// @grant       none
+// @require     https://raw.githubusercontent.com/denyWhite/yandexTrackerTimer/main/yandexTrackerTimer.js
 // ==/UserScript==
